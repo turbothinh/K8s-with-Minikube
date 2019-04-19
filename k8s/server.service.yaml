@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-node-pod
+  name: server-service
 spec:
   type: NodePort
   ports:
@@ -10,4 +10,4 @@ spec:
       nodePort: 31111 # Dev only. Between 30000 and 32767
 
   selector:
-    component: hello-world # Same as on pod label
+    deployment: server # Same as on pod label

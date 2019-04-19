@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+
+spec:
+  replicas: 2 # create 2 pods using the container template
+
+  selector:
+    matchLabels:
+      deployment: server
+
+  template: # Template for a pod
+    metadata:
+      labels:
+        deployment: server
+
+    spec:
+      containers:
+        - name: server
+          image: turbothinh/node-10-hello-world
+          ports:
+            - containerPort: 8080 # Port exposed from a container

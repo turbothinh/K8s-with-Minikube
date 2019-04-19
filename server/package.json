@@ -1,0 +1,9 @@
+{
+  "name": "turbo-k8s-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "docker-build": "docker build -t turbothinh/node-10-hello-world ."
+  }
+}

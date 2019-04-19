@@ -26,13 +26,13 @@ Note: This instruction is on Mac OS
    ```git clone git@github.com:turbothinh/K8s-with-Minikube.git && cd K8s-with-Minikube```
 
 6. Config objects to the cluster  
-   ```kubectl apply -f client-pod.yaml && kubectl apply -f client-node-pod.yaml```
+   ```kubectl apply -f k8s/server.deployment.yaml && kubectl apply -f k8s/server.service.yaml```
 
 7. Check if everything is working correctly using Minikube dashboard  
    ```minikube dashboard```
 
 8. Get all the running services on Minikube  
-   ```minikube service list``` and copy the __*client-node-pod*__ url on the table
+   ```minikube service list``` and copy the __*server-service*__ url on the table
 
 9. Connect to the cluster  
    Open browser and enter the copied URL. Walla!
