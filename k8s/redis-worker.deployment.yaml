@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-worker-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: redis-worker
+
+  template:
+    metadata:
+      labels:
+        app: redis-worker
+    spec:
+      containers:
+        - name: redis-worker
+          image: turbothinh/redis-worker
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip
+            - name: REDIS_PORT
+              value: '6379'
+          

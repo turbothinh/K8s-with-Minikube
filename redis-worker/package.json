@@ -1,0 +1,10 @@
+{
+  "license": "MIT",
+  "dependencies": {
+    "redis": "2.8.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "docker-build": "docker build -t turbothinh/redis-worker ."
+  }
+}

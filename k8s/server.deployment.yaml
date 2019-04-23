@@ -8,12 +8,12 @@ spec:
 
   selector:
     matchLabels:
-      deployment: server
+      app: server
 
   template: # Template for a pod
     metadata:
       labels:
-        deployment: server
+        app: server
 
     spec:
       containers:
@@ -21,3 +21,26 @@ spec:
           image: turbothinh/node-10-hello-world
           ports:
             - containerPort: 8080 # Port exposed from a container
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip
+            - name: REDIS_PORT
+              value: '6379'
+
+            - name: PGHOST
+              value: postgres-cluster-ip
+            - name: PGUSER
+              value: postgres
+            - name: PGPORT
+              value: '5432'
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pgpassword
+                  key: PGPASSWORD

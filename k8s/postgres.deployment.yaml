@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1 # Careful with increasing this number for DB. Running multiple instances of DB requires additional config
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      volumes:
+        - name: postgres-storage # define volume name
+          persistentVolumeClaim:
+            claimName: postgres-pvc # match the defined PVC name
+      containers:
+      - name: postgres
+        image: postgres
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 5432
+        env:
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secret-pgpassword
+                key: PGPASSWORD
+        volumeMounts:
+          - name: postgres-storage # mount this name of Volumes
+            mountPath: /var/lib/postgresql/data # to this path in the container
+            subPath: postgres # nested inside `postgres` folder on the Volume. Specifically needed for Postgres

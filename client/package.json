@@ -1,7 +1,30 @@
 {
-  "name": "turbo-k8s-client",
+  "name": "react-minimal-boilerplate",
   "version": "1.0.0",
+  "description": "A minimal boilerplate to roll out React project for testing quickly.",
   "main": "index.js",
-  "license": "MIT",
-  "scripts": {}
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --port 8008",
+    "build": "webpack",
+    "docker-build": " docker build -t turbothinh/react-dockerized .",
+    "serve": "docker run -d -p 8083:80 turbothinh/react-dockerized"
+  },
+  "keywords": [],
+  "author": "TurboThinh <me@turbothinh.com> (https://github.com/turbothinh)",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "react-hot-loader": "^4.3.11",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  }
 }

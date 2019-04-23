@@ -4,6 +4,10 @@ This project is to quickly create a K8s cluster on local machine with Minikube.
 
 Note: This instruction is on Mac OS
 
+## App structure
+- `client/`: A copy of [React Minimal Boilerplate](https://github.com/turbothinh/React-ES6-Minimal-Boilerplate)
+- `server/`: Simple Node Restful API
+
 ## Prerequisite
 - Homebrew installed
 - Hypervisor installed (Virtualbox, Hyperkit, etc.)
