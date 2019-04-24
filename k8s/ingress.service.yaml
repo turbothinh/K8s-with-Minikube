@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx # create Ingress Controller based on Ngin
+    nginx.ingress.kubernetes.io/rewrite-target: / # Replace request api to /
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false' # Do NOT redirect HTTPS
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: client-cluster-ip
+              servicePort: 8080
+          - path: /api
+            backend:
+              serviceName: service-cluster-ip
+              servicePort: 8081

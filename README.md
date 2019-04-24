@@ -23,21 +23,28 @@ Note: This instruction is on Mac OS
 3. Set Minikube driver to `Hyperkit` (default is `Virtualbox`)  
    `minikube config set vm-driver hyperkit`
 
-4. Create a Minikube node  
+4. Create a Minikube node and enable Ingress  
    ```minikube start```
 
-5. Clone this repo  
+5. Enable Ingress Add-on for Minikube  
+   ```minikube addons enable ingress```
+
+6. Clone this repo  
    ```git clone git@github.com:turbothinh/K8s-with-Minikube.git && cd K8s-with-Minikube```
 
-6. Config objects to the cluster  
-   ```kubectl apply -f k8s/server.deployment.yaml && kubectl apply -f k8s/server.service.yaml```
+7. Create objects in the cluster  
+   ```kubectl apply -f k8s```
 
-7. Check if everything is working correctly using Minikube dashboard  
+8. Enable Ingress-nginx service  
+   ```kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml```
+
+9.  Check if everything is working correctly using Minikube dashboard  
    ```minikube dashboard```
 
-8. Get all the running services on Minikube  
-   ```minikube service list``` and copy the __*server-service*__ url on the table
+11. Connect to the exposed services: `client` and `server`  
+    * First get **Minikube IP** by running `minikube ip`
+    * Copy the IP and paste to browser to visit `client`
+    * Append `/api` to the IP on browser to visit `server`
 
-9. Connect to the cluster  
-   Open browser and enter the copied URL. Walla!
+Walla!
     

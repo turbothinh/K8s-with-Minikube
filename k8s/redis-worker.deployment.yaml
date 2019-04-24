@@ -20,8 +20,8 @@ spec:
           image: turbothinh/redis-worker
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: "256Mi"
+              cpu: "2"
           env:
             - name: REDIS_HOST
               value: redis-cluster-ip
