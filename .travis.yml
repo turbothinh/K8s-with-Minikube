@@ -1,10 +1,54 @@
+language: generic
 sudo: required
+
+# Specify services to use in Travis
 service:
   - docker
+
+# Set up ENV variables
+env:
+  global:
+    # Store Commit hash to variable for implicitly update Docker images
+    - COMMIT_SHA=$(git rev-parse HEAD)
+
+    # Quietly run all Gcloud command without asking
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
 before_install:
+  # Encrypt Google Cloud service-account file using Trvis CLI encrypt-file
   - openssl aes-256-cbc -K $encrypted_ff1c0ac4100c_key -iv $encrypted_ff1c0ac4100c_iv
-    -in service-account.json.enc -out config/service-account.json -d
+    -in service-account.json.enc -out service-account.json -d
+
+  # Install Google Cloud SDK
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
+
+  # Gcloud set up
   - gcloud components update kubectl
   - gcloud auth activate-service-account --key-file service-account.json
+
+  # Get credentials from Gcloud cluster
+  # Remember to run these command before running kubectl on CloudShell
+  - gcloud config set project k8s-with-minikube
+  - gcloud config set compute/zone europe-west2-a
+  - gcloud container clusters get-credentials k8s-with-minikube-cluster
+  # Generate secret
+  #- kubectl create secret gereric secret-pgpassword --from-literal PGPASSWORD=S3cr3t
+
+  # Login to Docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  # Build docker image
+  # - docker build -t turbothinh/nginx-test -f ./client/Dockerfile ./client
+
+# script:
+  # - docker run turbothinh/nginx-test npm test -- --coverage
+
+deploy:
+  # Deployment using custom script
+  provider: script
+  script: bash ./deploy.sh
+
+  # Only run script if changes made on `master` branch
+  on:
+    branch: master

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: turbothinh/node-10-hello-world
+          image: turbothinh/k8s-boiler-server
           ports:
             - containerPort: 8080 # Port exposed from a container
           resources:

@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: client
-          image: turbothinh/react-dockerized
+          image: turbothinh/k8s-boiler-client
           ports:
             - containerPort: 80

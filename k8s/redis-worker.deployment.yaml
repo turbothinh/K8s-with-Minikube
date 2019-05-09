@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: redis-worker
-          image: turbothinh/redis-worker
+          image: turbothinh/k8s-boiler-redis-worker
           resources:
             limits:
               memory: "256Mi"
